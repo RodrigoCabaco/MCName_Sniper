@@ -7,6 +7,7 @@ using HtmlAgilityPack;
 using System.Web;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace NameMC_Sniper
 {
@@ -30,11 +31,29 @@ namespace NameMC_Sniper
             List<char> nameCreator;
 
 
+            if (File.Exists("log.txt"))
+            {
+                Console.WriteLine("There is Already a Log, overwrite (y) / Append (o)");
+                Console.Write(">>");
+                string isAppend = Console.ReadLine();
+                if(isAppend == "y")
+                {
+                    log = File.CreateText("log.txt");
+                }
+                else
+                {
+                    log = File.AppendText("log.txt");
+                }
+            }
+
             Console.WriteLine("Number of Letters in the usernames: ");
+            Console.Write(">>");
             int numberOfLetters = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Number of Names to search:");
+            Console.Write(">>");
             int numberOfNames = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Time to sleep between 10 requests (Seconds) (Min: 1, Default: 3): ");
+            Console.Write(">>");
+            Console.WriteLine("Time to sleep between 10 requests (Seconds) (Min: 1, Default: 3, Recommended: 5 or above): ");
             try
             {
                secondsToSleep = Convert.ToInt32(Console.ReadLine());
@@ -145,7 +164,8 @@ namespace NameMC_Sniper
                 }
                 catch
                 {
-                    Console.WriteLine("unable to check");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Unable to check due to request denied exception");
                 }
 
 
