@@ -68,7 +68,6 @@ namespace NameMC_Sniper
 
 
             }
-            namesToSearch.Add("b75");
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Starting...");
