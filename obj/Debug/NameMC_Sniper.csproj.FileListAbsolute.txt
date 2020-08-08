@@ -1,0 +1,15 @@
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\NameMC_Sniper.exe.config
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\NameMC_Sniper.exe
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\NameMC_Sniper.pdb
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.csprojAssemblyReference.cache
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.csproj.CoreCompileInputs.cache
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.csproj.CopyComplete
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.exe
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.pdb
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\NameMC_Sniper.exe.manifest
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\NameMC_Sniper.application
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.exe.manifest
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.application
