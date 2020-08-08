@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NameMC_Sniper.exe" size="9176">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NameMC_Sniper.exe" size="9688">
       <assemblyIdentity name="NameMC_Sniper" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>U1gQsAkgQk8EGZSIhVXLGlWx8QCu1GDWPUbA+dL50e8=</dsig:DigestValue>
+        <dsig:DigestValue>+7sPYp1DlJuDVTlAH3rzAuSU1Oxue8bDhRVHc6VCyVU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

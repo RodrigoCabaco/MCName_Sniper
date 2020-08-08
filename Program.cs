@@ -11,6 +11,8 @@ using System.Runtime.CompilerServices;
 
 namespace NameMC_Sniper
 {
+
+    /**********************MADE BY JOIP********************************/
     class Program
     {
         static void Main(string[] args)
@@ -18,7 +20,7 @@ namespace NameMC_Sniper
             int availableNamesFound = 0;
             int requestsMade = 0;
             int secondsToSleep;
-            Console.WriteLine("Started! Remember, everything is saved, to exit just press Ctrl + C! Also the log will be apended so if you wish to generate complete new names please delete the log file!!! ");
+            Console.WriteLine("Started! Remember, everything is saved, to exit just press Ctrl + C! \n Also the log will be apended so if you wish to generate complete new names please delete the log file!!! ");
             Console.WriteLine("All the names will be saved in the log.txt file");
             StreamWriter log;
             HtmlAgilityPack.HtmlWeb web = new HtmlWeb();
@@ -30,21 +32,6 @@ namespace NameMC_Sniper
 
             List<char> nameCreator;
 
-
-            if (File.Exists("log.txt"))
-            {
-                Console.WriteLine("There is Already a Log, overwrite (y) / Append (o)");
-                Console.Write(">>");
-                string isAppend = Console.ReadLine();
-                if(isAppend == "y")
-                {
-                    log = File.CreateText("log.txt");
-                }
-                else
-                {
-                    log = File.AppendText("log.txt");
-                }
-            }
 
             Console.WriteLine("Number of Letters in the usernames: ");
             Console.Write(">>");
@@ -110,7 +97,16 @@ namespace NameMC_Sniper
                     {
                         var getAvailability = doc.DocumentNode.SelectNodes("//*[@class = 'col-lg-7']");
                         if(getAvailability != null)
+                        { 
                         isAvailable = HttpUtility.HtmlDecode(getAvailability[0].NextSibling.NextSibling.InnerText);
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.WriteLine("Unable to check due to request denied exception or invalid response");
+                            System.Threading.Thread.Sleep(5000);
+                        }
+
                         requestsMade++;
                     }
                     catch
@@ -128,17 +124,19 @@ namespace NameMC_Sniper
                         Console.WriteLine(item + ": unavailable");
                     }else if(isAvailable.ToLower().Contains("available later"))
                     {
+                        var getTime = doc.DocumentNode.SelectNodes("//*[@class = 'mb-3']");
+                        var availableTime = HttpUtility.HtmlDecode(getTime[0].SelectSingleNode("//time[@class='text-nowrap']").InnerHtml);
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine(item + " : available later");
+                        Console.WriteLine(item + " : available later ");
                         if (File.Exists("log.txt"))
                         {
-                            log = File.AppendText("log.txt");
+                            log = File.CreateText("log.txt");
                         }
                         else
                         {
                             log = File.CreateText("log.txt");
                         }
-                        log.WriteLine(item + ": available later");
+                        log.WriteLine(item + ": available later " + "  -  (https://namemc.com/search?q=" + item + ")");
                         log.Close();
                     }
                     else if (isAvailable.ToLower().Contains("available"))
@@ -148,14 +146,14 @@ namespace NameMC_Sniper
                         availableNamesFound++;
                         if (File.Exists("log.txt"))
                         {
-                            log = File.AppendText("log.txt");
+                            log = File.CreateText("log.txt");
                         }
                         else
                         {
                             log = File.CreateText("log.txt");
                         }
 
-                        log.WriteLine(item + ": available");
+                        log.WriteLine(item + ": available " + "  -  (https://namemc.com/search?q=" + item + ")");
                         log.Close();
                         Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
 
@@ -164,8 +162,7 @@ namespace NameMC_Sniper
                 }
                 catch
                 {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("Unable to check due to request denied exception");
+                   
                 }
 
 
@@ -176,7 +173,7 @@ namespace NameMC_Sniper
 
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Finished, press any key to exit");
+            Console.WriteLine("Finished, press enter to exit");
             Console.ReadLine();
         }
     }
