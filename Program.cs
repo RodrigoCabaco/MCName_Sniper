@@ -68,6 +68,8 @@ namespace NameMC_Sniper
 
 
             }
+            namesToSearch.Add("b75");
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Starting...");
             foreach (var item in namesToSearch)
@@ -80,7 +82,7 @@ namespace NameMC_Sniper
 
 
                     //make sure the requests are not denied by sleeping between 11 requests
-                    if(requestsMade / 11 == 0 && requestsMade != 0)
+                    if(requestsMade % 11 == 0 && requestsMade != 0)
                     {
                         System.Threading.Thread.Sleep(secondsToSleep * 1000);
                     }
@@ -106,6 +108,20 @@ namespace NameMC_Sniper
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(item + ": unavailable");
+                    }else if(isAvailable.ToLower().Contains("available later"))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(item + " : available later");
+                        if (File.Exists("log.txt"))
+                        {
+                            log = File.AppendText("log.txt");
+                        }
+                        else
+                        {
+                            log = File.CreateText("log.txt");
+                        }
+                        log.WriteLine(item + ": available later");
+                        log.Close();
                     }
                     else if (isAvailable.ToLower().Contains("available"))
                     {
@@ -120,27 +136,13 @@ namespace NameMC_Sniper
                         {
                             log = File.CreateText("log.txt");
                         }
+
                         log.WriteLine(item + ": available");
                         log.Close();
                         Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
+
                     }
-                    else if (isAvailable.ToLower().Contains("available later"))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine(item + ": available later");
-                        availableNamesFound++;
-                        if (File.Exists("log.txt"))
-                        {
-                            log = File.AppendText("log.txt");
-                        }
-                        else
-                        {
-                            log = File.CreateText("log.txt");
-                        }
-                        log.WriteLine(item + ": available later");
-                        log.Close();
-                        Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
-                    }
+                    
                 }
                 catch
                 {
