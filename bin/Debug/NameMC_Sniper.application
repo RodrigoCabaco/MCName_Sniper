@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="NameMC_Sniper.exe.manifest" size="4170">
+    <dependentAssembly dependencyType="install" codebase="NameMC_Sniper.exe.manifest" size="4811">
       <assemblyIdentity name="NameMC_Sniper.exe" version="1.0.0.6" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>scri5HG7hvvw8UArwZE+ek4k+PHkK871u018LGqXy1o=</dsig:DigestValue>
+        <dsig:DigestValue>/rnbE6TXD+sKDMExwRMg8Y+c8hFSceMIY0PZ5PgZ6T8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

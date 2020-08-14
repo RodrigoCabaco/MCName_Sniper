@@ -54,14 +54,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NameMC_Sniper.exe" size="9688">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NameMC_Sniper.exe" size="10712">
       <assemblyIdentity name="NameMC_Sniper" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>TF2eOuuUzLHsMM/q1XaRei+YZYdTa0ayk7I/SXmRo18=</dsig:DigestValue>
+        <dsig:DigestValue>vAcnGJi/KxoVDy8q/FjkVNPjTf/fq8gzBWPppnzEEjs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WebDriver.dll" size="1783808">
+      <assemblyIdentity name="WebDriver" version="3.141.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>DuYZsXhs9ZccD5xu4YWUl67LqTpJU8+S/qmY6O763zw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

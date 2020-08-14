@@ -13,3 +13,5 @@ C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\NameMC_Sniper.exe.manifest
 C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\NameMC_Sniper.application
 C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.exe.manifest
 C:\Users\Rodrigo\source\repos\NameMC_Sniper\obj\Debug\NameMC_Sniper.application
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\WebDriver.dll
+C:\Users\Rodrigo\source\repos\NameMC_Sniper\bin\Debug\WebDriver.xml

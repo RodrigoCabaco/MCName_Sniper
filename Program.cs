@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Web;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -20,6 +22,9 @@ namespace NameMC_Sniper
             int availableNamesFound = 0;
             int requestsMade = 0;
             int secondsToSleep;
+            bool isLogged = false;
+            string username;
+            string password;
             Console.WriteLine("Started! Remember, everything is saved, to exit just press Ctrl + C! \n Also the log will be apended so if you wish to generate complete new names please delete the log file!!! ");
             Console.WriteLine("All the names will be saved in the log.txt file");
             StreamWriter log;
@@ -32,7 +37,7 @@ namespace NameMC_Sniper
 
             List<char> nameCreator;
 
-
+            
             Console.WriteLine("Number of Letters in the usernames: ");
             Console.Write(">>");
             int numberOfLetters = Convert.ToInt32(Console.ReadLine());
@@ -41,14 +46,37 @@ namespace NameMC_Sniper
             int numberOfNames = Convert.ToInt32(Console.ReadLine());
             Console.Write(">>");
             Console.WriteLine("Time to sleep between 10 requests (Seconds) (Min: 1, Default: 3, Recommended: 5 or above): ");
+            Console.Write(">>");
             try
             {
-               secondsToSleep = Convert.ToInt32(Console.ReadLine());
+                secondsToSleep = Convert.ToInt32(Console.ReadLine());
             }
             catch
             {
                 secondsToSleep = 3;
             }
+            /*
+
+            Console.WriteLine("Do you want Name Sniper to auto test the names for you? (Y/n)");
+            if (Console.ReadLine().ToLower() == "y")
+            {
+                isLogged = true;
+                Console.Write("Please Enter Your Minecraft Username or E-Mail:  ");
+                username = Console.ReadLine();
+                Console.Write("Please Enter Your Minecraft Password (we will not store this data):  ");
+                password = Console.ReadLine();
+                ChromeDriver driver = new ChromeDriver();
+                driver.Navigate().GoToUrl("https://www.minecraft.net/pt-pt/login");
+                driver.FindElementByXPath("//*[@id='CoreAppsApp']/main/div/div/a").Click();
+                driver.FindElementById("email").SendKeys(username);
+                driver.FindElementById("password").SendKeys(password + Keys.Enter);
+
+            }
+            else
+            {
+                isLogged = false;
+            }*/
+            
 
             //create a list of strings based on the char table
             for (int x = 0; x < numberOfNames; x++)
