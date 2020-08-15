@@ -23,7 +23,7 @@ namespace NameMC_Sniper
             int requestsMade = 0;
             bool isCheckingAvailability = true;
             int secondsToSleep;
-            Console.WriteLine("Started! Remember, everything is saved, to exit just press Ctrl + C! \n Also the log will be apended so if you wish to generate complete new names please delete the log file!!! ");
+            Console.WriteLine("Started! Remember, everything is saved, to exit just press Ctrl + C! \nAlso the log will be apended so if you wish to generate complete new names please delete the log file!!! ");
             Console.WriteLine("All the names will be saved in the log.txt file");
             StreamWriter log;
             StreamWriter mostRecentAvailableNameLog;
@@ -139,8 +139,8 @@ namespace NameMC_Sniper
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("Unable to check due to request denied exception or invalid response");
-                            System.Threading.Thread.Sleep(5000);
+                            Console.WriteLine("Unable to check due to request denied exception or invalid response... Retrying in 3 Seconds");
+                            System.Threading.Thread.Sleep(3000);
                         }
 
                         requestsMade++;
