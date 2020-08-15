@@ -122,7 +122,7 @@ namespace NameMC_Sniper
 
 
                     //make sure the requests are not denied by sleeping between 11 requests
-                    if (requestsMade >= 11 && requestsMade != 0)
+                    if (requestsMade >= 20 && requestsMade != 0)
                     {
                         requestsMade = 0;
                         System.Threading.Thread.Sleep(secondsToSleep * 1000);
