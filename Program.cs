@@ -14,20 +14,21 @@ using System.Runtime.CompilerServices;
 namespace NameMC_Sniper
 {
 
-    /**********************MADE BY JOIP********************************/
+    /***************************MADE BY JOIP****************************/
     class Program
     {
         static void Main(string[] args)
         {
             int availableNamesFound = 0;
             int requestsMade = 0;
+            bool isCheckingAvailability = true;
             int secondsToSleep;
-            bool isLogged = false;
-            string username;
-            string password;
             Console.WriteLine("Started! Remember, everything is saved, to exit just press Ctrl + C! \n Also the log will be apended so if you wish to generate complete new names please delete the log file!!! ");
             Console.WriteLine("All the names will be saved in the log.txt file");
             StreamWriter log;
+            StreamWriter mostRecentAvailableNameLog;
+            List<int> LowestAvailableDays = new List<int>();
+            List<int> LowestAvailableHours = new List<int>();
             HtmlAgilityPack.HtmlWeb web = new HtmlWeb();
             Random random = new Random();
             HtmlAgilityPack.HtmlDocument doc;
@@ -37,7 +38,7 @@ namespace NameMC_Sniper
 
             List<char> nameCreator;
 
-            
+
             Console.WriteLine("Number of Letters in the usernames: ");
             Console.Write(">>");
             int numberOfLetters = Convert.ToInt32(Console.ReadLine());
@@ -55,28 +56,19 @@ namespace NameMC_Sniper
             {
                 secondsToSleep = 3;
             }
-            /*
-
-            Console.WriteLine("Do you want Name Sniper to auto test the names for you? (Y/n)");
+            Console.Write("Do you want NameMc_Sniper to check the available time for \"Available Later\" Names? (Y/n): ");
             if (Console.ReadLine().ToLower() == "y")
             {
-                isLogged = true;
-                Console.Write("Please Enter Your Minecraft Username or E-Mail:  ");
-                username = Console.ReadLine();
-                Console.Write("Please Enter Your Minecraft Password (we will not store this data):  ");
-                password = Console.ReadLine();
-                ChromeDriver driver = new ChromeDriver();
-                driver.Navigate().GoToUrl("https://www.minecraft.net/pt-pt/login");
-                driver.FindElementByXPath("//*[@id='CoreAppsApp']/main/div/div/a").Click();
-                driver.FindElementById("email").SendKeys(username);
-                driver.FindElementById("password").SendKeys(password + Keys.Enter);
-
+                isCheckingAvailability = true;
+            }
+            else if (Console.ReadLine() == "n")
+            {
+                isCheckingAvailability = false;
             }
             else
             {
-                isLogged = false;
-            }*/
-            
+                isCheckingAvailability = true;
+            }
 
             //create a list of strings based on the char table
             for (int x = 0; x < numberOfNames; x++)
@@ -91,11 +83,24 @@ namespace NameMC_Sniper
                 }
                 string name = new string(nameCreator.ToArray());
 
-                if(namesToSearch.Contains(name) == false)
+                if (namesToSearch.Contains(name) == false)
                 {
                     namesToSearch.Add(name);
-                    if(namesToSearch.IndexOf(name) != 0)
-                    Console.WriteLine("Generating Names:   -   " + namesToSearch.IndexOf(name));
+                    if (namesToSearch.IndexOf(name) != 0)
+                        Console.WriteLine("Generating Names:   -   " + namesToSearch.IndexOf(name) + " / " + numberOfNames);
+                }
+                else if (namesToSearch.Contains(name) == true)
+                {
+                    for (int i = 0; i < numberOfLetters; i++)
+                    {
+                        int toRemove = charTable.Length;
+                        int randChar = random.Next(0, toRemove--);
+                        nameCreator.Add(charTable[randChar]);
+                    }
+                    string name2 = new string(nameCreator.ToArray());
+                    namesToSearch.Add(name);
+                    if (namesToSearch.IndexOf(name) != 0)
+                        Console.WriteLine("Generating Names:   -   " + namesToSearch.IndexOf(name2) + " / " + numberOfNames);
                 }
 
 
@@ -103,20 +108,23 @@ namespace NameMC_Sniper
 
             }
 
+
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Starting...");
+            Console.WriteLine("Finished Name Generation, Starting...");
             foreach (var item in namesToSearch)
             {
                 //make the request
-                try {
+                try
+                {
                     var isAvailable = "none";
                     string searchQuery = item;
                     doc = web.Load("https://namemc.com/search?q=" + searchQuery);
 
 
                     //make sure the requests are not denied by sleeping between 11 requests
-                    if(requestsMade % 11 == 0 && requestsMade != 0)
+                    if (requestsMade >= 11 && requestsMade != 0)
                     {
+                        requestsMade = 0;
                         System.Threading.Thread.Sleep(secondsToSleep * 1000);
                     }
 
@@ -124,9 +132,9 @@ namespace NameMC_Sniper
                     try
                     {
                         var getAvailability = doc.DocumentNode.SelectNodes("//*[@class = 'col-lg-7']");
-                        if(getAvailability != null)
-                        { 
-                        isAvailable = HttpUtility.HtmlDecode(getAvailability[0].NextSibling.NextSibling.InnerText);
+                        if (getAvailability != null)
+                        {
+                            isAvailable = HttpUtility.HtmlDecode(getAvailability[0].NextSibling.NextSibling.InnerText);
                         }
                         else
                         {
@@ -149,32 +157,105 @@ namespace NameMC_Sniper
                     if (isAvailable.ToLower().Contains("unavailable"))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(item + ": unavailable");
-                    }else if(isAvailable.ToLower().Contains("available later"))
+                        Console.Clear();
+                        Console.WriteLine("Testing item: " + item + ": unavailable " + "\nItems Tested: " + namesToSearch.IndexOf(item) + " / " + namesToSearch.Count);
+                        Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
+                    }
+                    else if (isAvailable.ToLower().Contains("available later"))
                     {
-                        var getTime = doc.DocumentNode.SelectNodes("//*[@class = 'mb-3']");
-                        var availableTime = HttpUtility.HtmlDecode(getTime[0].SelectSingleNode("//time[@class='text-nowrap']").InnerHtml);
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine(item + " : available later ");
-                        if (File.Exists("log.txt"))
+                        Console.Clear();
+                        Console.WriteLine("Testing item: " + item + ": available later " + " \nItems Tested: " + namesToSearch.IndexOf(item) + " / " + namesToSearch.Count);
+                        Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
+
+                        if (isCheckingAvailability)
                         {
-                            log = File.CreateText("log.txt");
+                            ChromeOptions options = new ChromeOptions();
+                            Console.WriteLine("Checking Availability Time for " + item + "...");
+
+                            options.AddArgument("--log-level=OFF");
+                            options.AddArgument("--silent");
+                            options.AddArgument("--window-position=-32000,-32000");
+                            ChromeDriver driver = new ChromeDriver(options);
+                            driver.Navigate().GoToUrl("https://namemc.com/search?q=" + item);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            var timeAvailable = driver.FindElementByClassName("countdown-timer").GetAttribute("innerText");
+
+
+                            if (LowestAvailableDays.Count <= 0)
+                            {
+                                mostRecentAvailableNameLog = File.CreateText("LowestAvailableTime.txt");
+                                LowestAvailableDays.Add(Convert.ToInt32(timeAvailable.Split('d').First()));
+                                LowestAvailableHours.Add(Convert.ToInt32(timeAvailable.Split('d').First()));
+                                mostRecentAvailableNameLog.WriteLine(item + $" ({timeAvailable})");
+                                mostRecentAvailableNameLog.Close();
+                            }
+
+                            driver.Close();
+                            Console.Clear();
+                            if (File.Exists("log.txt"))
+                            {
+                                log = File.AppendText("log.txt");
+                                log.WriteLine(item + ": available later " + "  -  (https://namemc.com/search?q=" + item + ")" + " Time for Availability: " + timeAvailable);
+                                log.Close();
+                            }
+                            else
+                            {
+                                log = File.CreateText("log.txt");
+                                log.WriteLine(item + ": available later " + "  -  (https://namemc.com/search?q=" + item + ")" + " Time for Availability: " + timeAvailable);
+                                log.Close();
+                            }
+
+                            if (LowestAvailableDays.Count < 0)
+                            {
+                                mostRecentAvailableNameLog = File.CreateText("LowestAvailableTime.txt");
+                                foreach (var day in LowestAvailableDays)
+                                {
+                                    if (Convert.ToInt32(timeAvailable.Split('d').First()) >= day)
+                                    {
+                                        foreach (var hour in LowestAvailableHours)
+                                        {
+                                            if (Convert.ToInt32(timeAvailable.Split('h').First()) >= hour)
+                                            {
+                                                mostRecentAvailableNameLog.WriteLine(item + $" ({timeAvailable})");
+                                                mostRecentAvailableNameLog.Close();
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+
+
+
                         }
                         else
                         {
-                            log = File.CreateText("log.txt");
+                            if (File.Exists("log.txt"))
+                            {
+                                log = File.AppendText("log.txt");
+                                log.WriteLine(item + ": available later " + "  -  (https://namemc.com/search?q=" + item + ")");
+                                log.Close();
+                            }
+                            else
+                            {
+                                log = File.CreateText("log.txt");
+                                log.WriteLine(item + ": available later " + "  -  (https://namemc.com/search?q=" + item + ")");
+                                log.Close();
+                            }
                         }
-                        log.WriteLine(item + ": available later " + "  -  (https://namemc.com/search?q=" + item + ")");
-                        log.Close();
+
+
                     }
                     else if (isAvailable.ToLower().Contains("available"))
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(item + ": available");
+                        Console.Clear();
+                        Console.WriteLine("Testing item: " + item + ": available " + "\nItems Tested: " + namesToSearch.IndexOf(item) + " / " + namesToSearch.Count);
                         availableNamesFound++;
                         if (File.Exists("log.txt"))
                         {
-                            log = File.CreateText("log.txt");
+                            log = File.AppendText("log.txt");
                         }
                         else
                         {
@@ -186,23 +267,24 @@ namespace NameMC_Sniper
                         Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
 
                     }
-                    
+
                 }
                 catch
                 {
-                   
+
                 }
 
 
-              }
+            }
 
 
 
 
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Finished, press enter to exit");
+            Console.WriteLine("Finished!" + " Available Names Found: " + availableNamesFound);
             Console.ReadLine();
+            Environment.Exit(1);
         }
     }
 }
