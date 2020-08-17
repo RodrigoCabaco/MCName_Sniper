@@ -21,6 +21,8 @@ namespace NameMC_Sniper
         {
             int availableNamesFound = 0;
             int requestsMade = 0;
+            int totalRequests = 0;
+            int deniedRequests = 0;
             bool isCheckingAvailability = true;
             int secondsToSleep;
             Console.WriteLine("Started! Remember, everything is saved, to exit just press Ctrl + C! \nAlso the log will be apended so if you wish to generate complete new names please delete the log file!!! ");
@@ -140,10 +142,12 @@ namespace NameMC_Sniper
                         {
                             Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("Unable to check due to request denied exception or invalid response... Retrying in 3 Seconds");
+                            deniedRequests++;
                             System.Threading.Thread.Sleep(3000);
                         }
 
                         requestsMade++;
+                        totalRequests++;
                     }
                     catch
                     {
@@ -160,6 +164,13 @@ namespace NameMC_Sniper
                         Console.Clear();
                         Console.WriteLine("Testing item: " + item + ": unavailable " + "\nItems Tested: " + namesToSearch.IndexOf(item) + " / " + namesToSearch.Count);
                         Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"Total Requests: {totalRequests}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Accepted Requests: {totalRequests - deniedRequests}");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Denied Requests: {deniedRequests}");
+                        Console.ResetColor();
                     }
                     else if (isAvailable.ToLower().Contains("available later"))
                     {
@@ -167,7 +178,13 @@ namespace NameMC_Sniper
                         Console.Clear();
                         Console.WriteLine("Testing item: " + item + ": available later " + " \nItems Tested: " + namesToSearch.IndexOf(item) + " / " + namesToSearch.Count);
                         Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
-
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"Total Requests: {totalRequests}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Accepted Requests: {totalRequests - deniedRequests}");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Denied Requests: {deniedRequests}");
+                        Console.ResetColor();
                         if (isCheckingAvailability)
                         {
                             ChromeOptions options = new ChromeOptions();
@@ -253,6 +270,13 @@ namespace NameMC_Sniper
                         Console.Clear();
                         Console.WriteLine("Testing item: " + item + ": available " + "\nItems Tested: " + namesToSearch.IndexOf(item) + " / " + namesToSearch.Count);
                         availableNamesFound++;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"Total Requests: {totalRequests}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Accepted Requests: {totalRequests - deniedRequests}");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Denied Requests: {deniedRequests}");
+                        Console.ResetColor();
                         if (File.Exists("log.txt"))
                         {
                             log = File.AppendText("log.txt");
@@ -264,7 +288,6 @@ namespace NameMC_Sniper
 
                         log.WriteLine(item + ": available " + "  -  (https://namemc.com/search?q=" + item + ")");
                         log.Close();
-                        Console.WriteLine($"Available Names With {numberOfLetters} Letters Found: {availableNamesFound}");
 
                     }
 
